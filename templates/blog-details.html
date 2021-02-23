@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Post Details</h4>
+                <h2>Single blog post</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+    <section class="blog-posts grid-system">
+      <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+    <div class="alert alert-succes" role="alert">
+    {{message}}
+    </div>
+        {% endfor %}		
+    {% endif %}
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="{{post.image.url}}" alt="">
+                    </div>
+                    <div class="down-content">
+                      <h4>{{post.title}}</h4>
+                      <ul class="post-info">
+                        <a href="{% url 'userProfile' %}"><li>{{post.author}}</li></a>
+                        <li>{{post.created_date}}</li>
+                        <li><a href="#"><i class="fa fa-comments" title="Comments"></i> {{comment_count}}</a></li>
+                        {% if request.user.is_superuser %}
+                        <li class="btn btn-primary"><a href="{% url 'blog-update' id=post.id %}">Update</a></li>
+                      <li class="btn btn-danger"><a href="{% url 'blog-delete' id=post.id %}">Delete</a></li>
+                      {% endif %}
+                      </ul>
+                      <p>{{post.content|safe}}</p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-6">
+                            
+                          </div>
+                          <div class="col-6">
+                            <ul class="post-share">
+                                {% for tag in post.tags.all %}
+                              <li><a href="#"> {{tag}}</a></li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item comments">
+                    <div class="sidebar-heading">
+                      <h2>{{comment_count}} comments</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        {% for comment in post.get_comments %}
+                        <li>
+                          <div class="author-thumb">
+                            <img src="{{comment.user.author.profile_pic.url}}" alt="">
+                          </div>
+                          <div class="right-content">
+                            <h4>{{comment.user.username}}<span>{{comment.timestamp}}</span></h4>
+                            <p>{{comment.content}}.</p>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item submit-comment">
+                    <div class="sidebar-heading">
+                      <h2>Your comment</h2>
+                    </div>
+                    <div class="content">
+                      <form id="comment" action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                              {{form}}
+                            </fieldset>
+                          </div>
+                          
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-button">Submit</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="sidebar">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="sidebar-item search">
+                    <form id="search_form" name="gs" method="GET" action="#">
+                      <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                    </form>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item recent-posts">
+                    <div class="sidebar-heading">
+                      <h2>Recent Posts</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        {% for recent_post in recent_posts %}
+                        <li><a href="{{ recent_post.get_absolute_url }}">
+                          <h5>{{recent_post.title}}</h5>
+                          <span>{{recent_post.created_date}}</span>
+                        </a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

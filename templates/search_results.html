@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container pt-5">
+    <h4 class="text-center pt-5">This is the results of your search</h4>
+    {% if queryset %}
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Overview</th>
+            <th scope="col">İmage</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for post in queryset %}
+          <tr>
+            <td><a>{{ post.id }}</a> </td>
+            <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </td>
+            <td><a>{{ post.overview|truncatechars:150 }}</a> </td>
+            <td><a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" width="350" height="200" alt=""></a> </td>
+          </tr>
+          {% endfor %}
+          <tr>
+        </tbody>
+      </table>
+      {% else %}
+      <h4>Your search  can not found, please check again</h4>
+      {% endif %}
+</div>
+{% endblock %}

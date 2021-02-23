@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Jobs</h4>
+                <h2>Choose the perfect job!</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+    <section class="blog-posts grid-system">
+      <div class="container">
+        <div class="all-blog-posts">
+          <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <form action="#">
+                 <h4 style="margin-bottom: 15px">Type</h4>
+
+                 {% for type in alljob %}
+                 <div>
+                      <label>
+                           <input type="checkbox">
+
+                           <span>{{type.type}} ({{request.type_count}})</span>
+                      </label>
+                 </div>
+                 {% endfor %}
+                
+
+                 <br>
+
+                 <h4 style="margin-bottom: 15px">Category</h4>
+
+                 {% for category in alljob %}
+                 <div>
+                      <label>
+                           <input type="checkbox">
+
+                           <span>{{category.jobcategory}} (5)</span>
+                      </label>
+                 </div>
+                 {% endfor %}
+                 
+
+                 <br>
+
+
+                 <h4 style="margin-bottom: 15px">Education levels</h4>
+
+                
+                 {% for level in alljob %}
+                 <div>
+                      <label>
+                           <input type="checkbox">
+
+                           <span>{{level.level}} (5)</span>
+                      </label>
+                 </div>
+                 {% endfor %}
+                 <br>
+
+
+                 <h4 style="margin-bottom: 15px">Years of experience</h4>
+
+                  {% for exp in alljob %}
+                 <div>
+                      <label>
+                           <input type="checkbox">
+
+                            <span>{{exp.experience}} (5)</span>
+                      </label>
+                 </div>
+                 {% endfor %}
+                </form>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+              <div class="row">
+                {% for job in alljob %}
+                <div class="col-sm-6">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="{{job.image.url}}" alt="">
+                    </div>
+                    <div class="down-content">
+                      <span>${{job.salary}}</span>
+                      <a href="job-details.html"><h4>{{job.title}}</h4></a>
+                      <p>{{job.overview}}</p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <ul class="post-tags">
+                              <li><i class="fa fa-bullseye"></i></li>
+                              <li><a href="{{job.get_absolute_url }}">View Job</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
+
+ {% endblock %}

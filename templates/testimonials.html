@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Testimonials</h4>
+                <h2>Read what people say about us!</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+
+    <div class="blog-posts">
+      <div class="container">
+        <div class="sidebar-item comments">
+          <div class="content">
+            <ul>
+              {% for testimonial in testimonials %}
+              <li>
+                <div class="author-thumb">
+                  <img src="{{testimonial.image.url}}" alt="">
+                </div>
+                <div class="right-content">
+                  <h4>{{testimonial.fullname}}<span>{{testimonial.created_date|date:"d M Y"}}</span></h4>
+                  <p>{{testimonial.description|safe}}</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <!-- <div class="row justify-content-md-center">
+            <div class="col-md-3">
+              <div class="main-button">
+                <a href="#">Load More</a>
+              </div>
+            </div>
+          </div> -->
+      </div>
+    </div>
+
+{% endblock %}

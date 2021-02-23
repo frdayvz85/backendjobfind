@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>${{jobs.salary}}</h4>
+                <h2>{{jobs.jobtitle}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+    <section class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div>
+              <img src="{{jobs.image.url}}" alt="" class="img-fluid wc-image">
+            </div>
+
+            <br>
+          </div>
+
+          <div class="col-md-8">
+            <div class="sidebar-item recent-posts">
+              <div class="sidebar-heading">
+                <h2>
+                 <i class="fa fa-map-marker"></i> {{jobs.city}} &nbsp;&nbsp;
+                 <i class="fa fa-calendar"></i> {{jobs.create_at|date:"d M Y"}} &nbsp;&nbsp;
+                 <i class="fa fa-file"></i> {{jobs.type}}
+                 {% if user.is_employer %}
+                 <a href="{% url 'job-update' slug=jobs.slug %}" class="btn btn-info">Update</a> 
+                 <a href="{% url 'job-delete' slug=jobs.slug %}" class="btn btn-danger">Delete</a> 
+                 {% endif %}
+                </h2>
+              </div>
+
+              <div class="content">
+                <p>{{jobs.overview}}</p>
+              </div>
+            </div>
+
+            <br>
+          
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="main-button">
+                  <a href="mailto:chriscoyier@gmail.com">Apply for this Job</a>
+                </div>
+              </div>
+            </div>
+
+            <br>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section contact-us">
+      <div class="container">
+        <div class="sidebar-item recent-posts">
+          <div class="sidebar-heading">
+            <h2>Description</h2>
+          </div>
+
+          <div class="content">
+            {{jobs.description|safe}}
+          </div>
+
+          <br>
+          <br>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="sidebar-item recent-posts">
+              <div class="sidebar-heading">
+                <h2>About Cannon Guards Security ltd</h2>
+              </div>
+
+              <div class="content">
+                <p class="lead"> <i class="fa fa-map-marker"></i> London </p>
+
+                <br>
+                {{user.employer.companyinfo|safe}}
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="sidebar-item recent-posts">
+              <div class="sidebar-heading">
+                <h2>Contact Details</h2>
+              </div>
+
+              <div class="content">
+                <p>
+                  <span>Name</span>
+
+                  <br>
+
+                  <strong>{{user.employer.name}}</strong>
+                </p>
+
+                <p>
+                  <span>Company name</span>
+
+                  <br>
+
+                  <strong>{{user.employer.companyname}}</strong>
+                </p>
+
+                <p>
+                  <span>Phone</span>
+
+                  <br>
+                  
+                  <strong>
+                    <a href="tel:123-456-789">{{user.employer.phonenumber}}</a>
+                  </strong>
+                </p>
+
+                <p>
+                  <span>Mobile phone</span>
+
+                  <br>
+                  
+                  <strong>
+                    <a href="tel:456789123">{{user.employer.mobilenumber}}</a>
+                  </strong>
+                </p>
+
+                <p>
+                  <span>Email</span>
+
+                  <br>
+                  
+                  <strong>
+                    <a href="mailto:{{user.email}}">{{user.email}}</a>
+                  </strong>
+                </p>
+
+                <p>
+                  <span>Website</span>
+
+                  <br>
+                  
+                  <strong>
+                    <a href="http://www.cannonguards.com/">{{user.employer.website}}</a>
+                  </strong>
+                </p>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+{% endblock %}
