@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import django_heroku
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')@su62#(h5%mu9b2bne1k2yhaqvt50my(nnbqsnvv)j1dnig*p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['jobfindagency.herokuapp.com', '127.0.0.1']
@@ -162,6 +162,5 @@ CKEDITOR_CONFIGS = {
 ###################################
 # AUTH_USER_MODEL = 'jobs.CustomUser'
 AUTH_USER_MODEL = 'jobs.CustomUser'
-
 
 django_heroku.settings(locals())
