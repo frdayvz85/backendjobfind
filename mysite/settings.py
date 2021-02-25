@@ -139,6 +139,8 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #...
 SITE_ID = 1
  
@@ -161,4 +163,3 @@ CKEDITOR_CONFIGS = {
 # AUTH_USER_MODEL = 'jobs.CustomUser'
 AUTH_USER_MODEL = 'jobs.CustomUser'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
