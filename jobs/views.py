@@ -42,11 +42,13 @@ def search(request):
 def home(request):
     last_three = Testimonial.objects.all().order_by('-id')[:3]
     featured = Post.objects.filter(featured=True).order_by('-created_date')[0:3]
-    
+    comments = Comment.objects.all()
+    comment_count = comments.count()
     popular_jobs = Job.objects.all().order_by('-id')[:5]
     last_three_job = Job.objects.all().order_by('-id')[:3]
     context = {
         'last_three':last_three, 'featured':featured,
+        'comment_count':comment_count,
         'last_three_job':last_three_job,
         'popular_jobs':popular_jobs
         }
