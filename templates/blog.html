@@ -38,7 +38,7 @@
                       <p>{{post.overview|truncatechars:125}}</p>
 
                       <ul class="post-info">
-                        <li><a href="{% url 'userProfile' %}">{{post.author }}</a></li>
+                        <li>{{post.author }}</li>
                         <li>{{post.created_date|date:"d M Y"}}</li>
                         <li><i class="fa fa-comments" title="Comments"></i> {{comment_count}}</li>
                       </ul>

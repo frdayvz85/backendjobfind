@@ -119,7 +119,7 @@ def blog(request):
 def blogDetail(request, id):
     post = get_object_or_404(Post, id=id)
     recent_posts = Post.objects.all().order_by('-created_date')[:3]
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(post=id)
     comment_count = comments.count()
 
     form = CommentForm(request.POST or None)
@@ -329,15 +329,15 @@ def jobs(request):
 def jobDetail(request, slug):
     jobs = get_object_or_404(Job, slug=slug)
     # recent_jobs = Job.objects.all().order_by('-create_at')[:3]
-    user = request.user
-    form = EmployerForm(instance=user)
+    # user = request.user
+    # form = EmployerForm(instance=user)
     # employer = get_object_or_404(Employer)
     # employer = Employer.objects.filter(name = request.user.first_name +" "+ request.user.last_name)
 
     context = {
         'jobs':jobs,
         # 'employer':employer,
-        'form':form
+        # 'form':form
 
         # 'recent_posts':recent_posts,
         }

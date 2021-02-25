@@ -72,14 +72,20 @@
                 <div class="col-lg-12">
                   <div class="sidebar-item comments">
                     <div class="sidebar-heading">
-                      <h2>{{comment_count}} comments</h2>
+                      <h2>{{comment_count}} comments </h2>
                     </div>
                     <div class="content">
                       <ul>
                         {% for comment in post.get_comments %}
                         <li>
                           <div class="author-thumb">
+                            {% if user.is_user %}
                             <img src="{{comment.user.author.profile_pic.url}}" alt="">
+                            {% else %}
+                            <img src="{{comment.user.employer.profile_pic.url}}" alt="">
+                            {% endif %}
+                    
+
                           </div>
                           <div class="right-content">
                             <h4>{{comment.user.username}}<span>{{comment.timestamp}}</span></h4>

@@ -30,30 +30,28 @@
                 <form action="#">
                  <h4 style="margin-bottom: 15px">Type</h4>
 
-                 {% for type in alljob %}
+        
                  <div>
                       <label>
                            <input type="checkbox">
 
-                           <span>{{type.type}} ({{request.type_count}})</span>
+                           <span>{{alljob.type}} ()</span>
                       </label>
                  </div>
-                 {% endfor %}
+            
                 
 
                  <br>
 
                  <h4 style="margin-bottom: 15px">Category</h4>
 
-                 {% for category in alljob %}
                  <div>
                       <label>
                            <input type="checkbox">
 
-                           <span>{{category.jobcategory}} (5)</span>
+                           <span>{{alljob.jobcategory}} (5)</span>
                       </label>
                  </div>
-                 {% endfor %}
                  
 
                  <br>
@@ -62,29 +60,25 @@
                  <h4 style="margin-bottom: 15px">Education levels</h4>
 
                 
-                 {% for level in alljob %}
                  <div>
                       <label>
                            <input type="checkbox">
 
-                           <span>{{level.level}} (5)</span>
+                           <span>{{alljob.level}} (5)</span>
                       </label>
                  </div>
-                 {% endfor %}
                  <br>
 
 
                  <h4 style="margin-bottom: 15px">Years of experience</h4>
 
-                  {% for exp in alljob %}
                  <div>
                       <label>
                            <input type="checkbox">
 
-                            <span>{{exp.experience}} (5)</span>
+                            <span>{{alljob.experience}} (5)</span>
                       </label>
                  </div>
-                 {% endfor %}
                 </form>
             </div>
 
