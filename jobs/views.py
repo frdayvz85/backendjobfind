@@ -48,7 +48,7 @@ def home(request):
     last_three_job = Job.objects.all().order_by('-id')[:3]
     context = {
         'last_three':last_three, 'featured':featured,
-        'comment_count':comment_count,
+        # 'comment_count':comment_count,
         'last_three_job':last_three_job,
         'popular_jobs':popular_jobs
         }
