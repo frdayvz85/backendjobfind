@@ -11,9 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from pathlib import Path
 import django_heroku
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+import cloudinary_storage
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,12 +47,15 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
+
+    
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -170,11 +172,12 @@ CKEDITOR_CONFIGS = {
 # AUTH_USER_MODEL = 'jobs.CustomUser'
 AUTH_USER_MODEL = 'jobs.CustomUser'
 
-cloudinary.config( 
-  cloud_name = "dcnbcvr2z", 
-  api_key = "692917715259323", 
-  api_secret = "Go_qf7Ng4cTvXr5EetqgffEKt4k" 
-)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dcnbcvr2z', 
+    'API_KEY': '692917715259323', 
+    'API_SECRET': 'Go_qf7Ng4cTvXr5EetqgffEKt4k'
+}
 
-DEFAULT_FILE_STORAGE = 'cloudinary.storage.MediaCloudinaryStorage'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 django_heroku.settings(locals())
