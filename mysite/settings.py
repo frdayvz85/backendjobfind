@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from pathlib import Path
 import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,7 +147,7 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #...
 SITE_ID = 1
  
@@ -167,4 +170,11 @@ CKEDITOR_CONFIGS = {
 # AUTH_USER_MODEL = 'jobs.CustomUser'
 AUTH_USER_MODEL = 'jobs.CustomUser'
 
+cloudinary.config( 
+  cloud_name = "dcnbcvr2z", 
+  api_key = "692917715259323", 
+  api_secret = "Go_qf7Ng4cTvXr5EetqgffEKt4k" 
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary.storage.MediaCloudinaryStorage'
 django_heroku.settings(locals())
