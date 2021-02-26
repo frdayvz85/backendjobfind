@@ -66,9 +66,11 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title','featured','updated_date', 'created_date']
+    list_display = ['title','featured','slug','updated_date', 'created_date']
     list_filter = ['title']
+    search_fields = ['title','slug','tags', 'overview']
     prepopulated_fields = {'slug':('title',)} 
+    list_editable = ['slug']
 
 admin.site.register(Post, PostAdmin)
 
@@ -91,14 +93,16 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Comment, CommentAdmin)
 
 class ContactFormMessageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email']
+    list_display = ['name', 'email', 'note', 'status', 'create_at']
     list_filter = ['name']
+    search_fields = ['status', 'email', 'name']
 
 admin.site.register(ContactFormMessage, ContactFormMessageAdmin)
 
 class ContactInfoAdmin(admin.ModelAdmin):
-    list_display = ['status', 'email']
+    list_display = ['status', 'email', 'create_at']
     list_filter = ['status']
+    search_fields = ['status', 'email']
 
 admin.site.register(ContactInfo, ContactInfoAdmin)
 
@@ -128,16 +132,20 @@ class CityAdmin(admin.ModelAdmin):
 admin.site.register(City, CityAdmin)
 
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['jobtitle']
+    list_display = ['jobtitle','type', 'create_at', 'slug']
     list_filter = ['jobtitle']
+    search_fields = ['jobtitle','city']
+    list_editable = ['slug']
     prepopulated_fields = {'slug':('jobtitle',)} 
 
 admin.site.register(Job, JobAdmin)
 
 
 class EmployerAdmin(admin.ModelAdmin):
-    list_display = ['user','companyname']
-    list_filter = ['name']
+    list_display = ['user','companyname','city','create_at']
+    list_display_links = ['user','city']
+    list_filter = ['user','name']
+    search_fields = ['name','city']
 
 admin.site.register(Employer, EmployerAdmin)
 

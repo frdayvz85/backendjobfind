@@ -32,27 +32,17 @@
 
         
                  <div>
-                      <label>
-                           <input type="checkbox">
+                  <label>
+                    {% for type_count in type_counts %}
+                       <input type="checkbox">
 
-                           <span>{{alljob.type}} ()</span>
-                      </label>
+                       <span>{{type_count.type}} ({{type_count.type__count}})</span>
+                       <br>
+                       {% endfor %}
+                  </label>
                  </div>
             
                 
-
-                 <br>
-
-                 <h4 style="margin-bottom: 15px">Category</h4>
-
-                 <div>
-                      <label>
-                           <input type="checkbox">
-
-                           <span>{{alljob.jobcategory}} (5)</span>
-                      </label>
-                 </div>
-                 
 
                  <br>
 
@@ -62,9 +52,12 @@
                 
                  <div>
                       <label>
+                        {% for level_count in level_counts %}
                            <input type="checkbox">
 
-                           <span>{{alljob.level}} (5)</span>
+                           <span>{{level_count.level}} ({{level_count.level__count}})</span>
+                           <br>
+                           {% endfor %}
                       </label>
                  </div>
                  <br>
@@ -74,9 +67,11 @@
 
                  <div>
                       <label>
+                        {% for expereince_count in expereince_counts %}
                            <input type="checkbox">
-
-                            <span>{{alljob.experience}} (5)</span>
+                            <span>{{expereince_count.experience}} ({{expereince_count.experience__count}})</span>
+                            <br>
+                            {% endfor %}
                       </label>
                  </div>
                 </form>
@@ -92,7 +87,7 @@
                     </div>
                     <div class="down-content">
                       <span>${{job.salary}}</span>
-                      <a href="job-details.html"><h4>{{job.title}}</h4></a>
+                      <a href="{{job.get_absolute_url }}"><h4>{{job.jobtitle}}</h4></a>
                       <p>{{job.overview}}</p>
                       <div class="post-options">
                         <div class="row">

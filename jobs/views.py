@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect,get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -24,7 +24,32 @@ def get_employer(user):
     if qs.exists():
         return qs[0]
     return None
+def get_type_count():
+    querysetType = Job \
+        .objects \
+        .values('type') \
+        .annotate(Count('type'))
+    return querysetType
 
+def get_experience_count():
+    querysetExperience = Job \
+        .objects \
+        .values('experience') \
+        .annotate(Count('experience'))
+    return querysetExperience
+
+def get_level_count():
+    querysetLevel = Job \
+        .objects \
+        .values('level') \
+        .annotate(Count('level'))
+    return querysetLevel
+def get_category_count():
+    querysetCategory = Job \
+        .objects \
+        .values('jobcategory') \
+        .annotate(Count('jobcategory'))
+    return querysetCategory
 def search(request):
     queryset = Post.objects.all()
     query = request.GET.get('q')
@@ -319,10 +344,19 @@ def logoutUser(request):
 
 def jobs(request):
     alljob = Job.objects.all()
-    type_count = alljob.count()
+    categories = JobCategory.objects.all()
+    type_counts = get_type_count()
+    expereince_counts = get_experience_count()
+    level_counts = get_level_count()
+    category_counts = get_category_count()
+
     context = {
         'alljob':alljob,
-        'type_count':type_count
+        'type_counts':type_counts,
+        'expereince_counts':expereince_counts,
+        'level_counts':level_counts,
+        'category_counts':category_counts,
+        'categories':categories
     }
     return render(request, 'jobs.html', context)
 
