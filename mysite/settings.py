@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
+    'django_filters',
 
     
     'cloudinary_storage',

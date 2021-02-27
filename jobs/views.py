@@ -9,6 +9,7 @@ from .forms import CommentForm, SignUpForm, ContactFormu, PostForm,JobForm,Emplo
 from django.contrib.auth.models import Group
 from .models import *
 from django.views.generic import CreateView
+# from .filters import JobFilter
 # from user.forms import UserProfileForm
 
 
@@ -339,24 +340,57 @@ def logoutUser(request):
 
 
 
+# for search 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
 
 
 def jobs(request):
-    alljob = Job.objects.all()
+    qs = Job.objects.all()
     categories = JobCategory.objects.all()
     type_counts = get_type_count()
     expereince_counts = get_experience_count()
     level_counts = get_level_count()
     category_counts = get_category_count()
 
+    # myFilter = JobFilter(request.GET, queryset=alljob)
+    # alljob = myFilter.qs
+    type = request.GET.get('type')
+    level = request.GET.get('level')
+    experience = request.GET.get('experience')
+    category = request.GET.get('category')
+
+    if is_valid_queryparam(type):
+        qs = qs.filter(type=type)
+
+    if is_valid_queryparam(level):
+        qs = qs.filter(level=level)
+    
+    if is_valid_queryparam(experience):
+        qs = qs.filter(experience=experience)
+
+    if is_valid_queryparam(category) and category != 'Choose...':
+        qs = qs.filter(jobcategory__title=category)
+
+    paginator = Paginator(qs, 4)
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    try:
+        paginated_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_queryset = paginator.page(1) 
+    except EmptyPage:
+        paginated_queryset = paginator.page(paginator.num_pages)
+
     context = {
-        'alljob':alljob,
+        'queryset': paginated_queryset,
+        'page_request_var': page_request_var,
         'type_counts':type_counts,
         'expereince_counts':expereince_counts,
         'level_counts':level_counts,
         'category_counts':category_counts,
-        'categories':categories
+        'categories':categories,
     }
     return render(request, 'jobs.html', context)
 

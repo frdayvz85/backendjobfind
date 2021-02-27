@@ -23,6 +23,16 @@
 
     <section class="blog-posts grid-system">
       <div class="container">
+        <!---------------Message ----------->
+				{% if messages %}
+				{% for message in messages %}
+			<div class="alert alert-success alert-dismissible " role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+					{{ message }}
+			</div>
+				{% endfor %}		
+			{% endif %}
         <div class="row">
           <div class="col-md-4">
             <div>
@@ -40,8 +50,10 @@
                  <i class="fa fa-calendar"></i> {{jobs.create_at|date:"d M Y"}} &nbsp;&nbsp;
                  <i class="fa fa-file"></i> {{jobs.type}}
                  {% if user.is_employer %}
+                 {% if user.get_full_name == jobs.employer.name %}
                  <a href="{% url 'job-update' slug=jobs.slug %}" class="btn btn-info">Update</a> 
                  <a href="{% url 'job-delete' slug=jobs.slug %}" class="btn btn-danger">Delete</a> 
+                 {% endif %}
                  {% endif %}
                 </h2>
               </div>
@@ -56,7 +68,7 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="main-button">
-                  <a href="mailto:ferideyvazov25@gmail.com">Apply for this Job</a>
+                  <a href="mailto:{{jobs.employer.user.email}}">Apply for this Job</a>
                 </div>
               </div>
             </div>

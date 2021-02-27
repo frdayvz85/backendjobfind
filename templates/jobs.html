@@ -24,17 +24,27 @@
 
     <section class="blog-posts grid-system">
       <div class="container">
+        <!---------------Message ----------->
+				{% if messages %}
+				{% for message in messages %}
+			<div class="alert alert-success alert-dismissible " role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+					{{ message }}
+			</div>
+				{% endfor %}		
+			{% endif %}
         <div class="all-blog-posts">
           <div class="row">
             <div class="col-md-4 col-xs-12">
-                <form action="#">
+                <form action="" method="GET">
                  <h4 style="margin-bottom: 15px">Type</h4>
 
         
                  <div>
                   <label>
                     {% for type_count in type_counts %}
-                       <input type="checkbox">
+                       <input type="checkbox" name="type" value="{{type_count.type}}">
 
                        <span>{{type_count.type}} ({{type_count.type__count}})</span>
                        <br>
@@ -53,7 +63,7 @@
                  <div>
                       <label>
                         {% for level_count in level_counts %}
-                           <input type="checkbox">
+                           <input type="checkbox" name="level" value="{{level_count.level}}">
 
                            <span>{{level_count.level}} ({{level_count.level__count}})</span>
                            <br>
@@ -68,18 +78,37 @@
                  <div>
                       <label>
                         {% for expereince_count in expereince_counts %}
-                           <input type="checkbox">
+                           <input type="checkbox" name="experience" value="{{expereince_count.experience}}">
                             <span>{{expereince_count.experience}} ({{expereince_count.experience__count}})</span>
                             <br>
                             {% endfor %}
                       </label>
                  </div>
+                 <div>           
+                 </div>
+                 <br>
+                 <div>
+                  <div class="form-group">
+                    <h4 style="margin-bottom: 15px">Categories</h4>
+                    <select name="category" id="category" class="form-control">
+                      <option selected>Choose...</option>
+                      {% for cat in categories %}
+                      <option value="{{cat}}">{{cat}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  
+                 </div>
+                 <div>
+                   <input class="btn btn-warning btn-lg btn-block" type="submit" value="Search"/>
+                 </div>
                 </form>
+                
             </div>
 
             <div class="col-md-8 col-xs-12">
               <div class="row">
-                {% for job in alljob %}
+                {% for job in queryset %}
                 <div class="col-sm-6">
                   <div class="blog-post">
                     <div class="blog-thumb">
@@ -103,6 +132,17 @@
                   </div>
                 </div>
                 {% endfor %}
+              </div>
+              <div class="col-lg-12">
+                <ul class="page-numbers">
+                  {% if queryset.has_previous %} 
+                  <li><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                  {% endif %}
+                  <li class="active"><a href="?{{ page_request_var }}={{ queryset.number }}">{{ queryset.number }}</a></li>
+                  {% if queryset.has_next %}
+                  <li><a href="?{{ page_request_var }}={{ queryset.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                  {% endif %}
+                </ul>
               </div>
             </div>
           </div>
