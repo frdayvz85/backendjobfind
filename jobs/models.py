@@ -145,6 +145,10 @@ class Post(models.Model):
     @property
     def get_comments(self):
         return self.comments.all().order_by('-timestamp')
+    
+    @property
+    def comment_count(self):
+        return Comment.objects.filter(post=self).count()
 
 
 class Comment(models.Model):

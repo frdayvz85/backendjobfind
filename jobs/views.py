@@ -118,8 +118,8 @@ def blog(request):
     tag_count = tags.count()
     categories = Category.objects.all()
     category_count = categories.count()
-    comments = Comment.objects.all()
-    comment_count = comments.count()
+    # comments = Comment.objects.all()
+    # comment_count = comments.count()
 
     paginator = Paginator(posts, 2)
     page_request_var = 'page'
@@ -135,7 +135,7 @@ def blog(request):
         'tags':tags,
         'categories':categories,
         'recent_posts':recent_posts,
-        'comment_count':comment_count,
+        # 'comment_count':comment_count,
         'category_count':category_count,
         'tag_count':tag_count,
         'queryset': paginated_queryset,

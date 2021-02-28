@@ -26,13 +26,16 @@
     <!-- Banner Ends Here -->
     <section class="blog-posts grid-system">
       <div class="container">
-        {% if messages %}
-        {% for message in messages %}
-    <div class="alert alert-succes" role="alert">
-    {{message}}
-    </div>
-        {% endfor %}		
-    {% endif %}
+         <!---------------Message ----------->
+				{% if messages %}
+				{% for message in messages %}
+			<div class="alert alert-success alert-dismissible " role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+					{{ message }}
+			</div>
+				{% endfor %}		
+			{% endif %}
         <div class="row">
           <div class="col-lg-8">
             <div class="all-blog-posts">
@@ -47,7 +50,7 @@
                       <ul class="post-info">
                         <a href="{% url 'userProfile' %}"><li>{{post.author}}</li></a>
                         <li>{{post.created_date|date:"d M Y"}}</li>
-                        <li><a href="#"><i class="fa fa-comments" title="Comments"></i> {{comment_count}}</a></li>
+                        <li><a href="#"><i class="fa fa-comments" title="Comments"></i> {{post.comment_count}}</a></li>
                         {% if request.user.is_superuser %}
                         <li class="btn btn-primary"><a href="{% url 'blog-update' id=post.id %}">Update</a></li>
                       <li class="btn btn-danger"><a href="{% url 'blog-delete' id=post.id %}">Delete</a></li>
@@ -74,7 +77,8 @@
                 <div class="col-lg-12">
                   <div class="sidebar-item comments">
                     <div class="sidebar-heading">
-                      <h2>{{comment_count}} comments </h2>
+                      
+                      <h2>{{post.comment_count}} {% if post.comment_count > 1 %} comments {% else %} comment {% endif %}</h2>
                     </div>
                     <div class="content">
                       <ul>
@@ -85,8 +89,6 @@
                             <img src="{{comment.user.author.profile_pic.url}}" alt="">
                             
                             <img src="{{comment.user.employer.profile_pic.url}}" alt="">
-                            
-                    
 
                           </div>
                           <div class="right-content">
