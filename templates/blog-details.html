@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %} {{post.title}} - Job Find Agency {% endblock %}
+
 {% block content %}
 
   
@@ -44,7 +46,7 @@
                       <h4>{{post.title}}</h4>
                       <ul class="post-info">
                         <a href="{% url 'userProfile' %}"><li>{{post.author}}</li></a>
-                        <li>{{post.created_date}}</li>
+                        <li>{{post.created_date|date:"d M Y"}}</li>
                         <li><a href="#"><i class="fa fa-comments" title="Comments"></i> {{comment_count}}</a></li>
                         {% if request.user.is_superuser %}
                         <li class="btn btn-primary"><a href="{% url 'blog-update' id=post.id %}">Update</a></li>
@@ -79,12 +81,11 @@
                         {% for comment in post.get_comments %}
                         <li>
                           <div class="author-thumb">
-                            {% if user.is_user %}
+                            
                             <img src="{{comment.user.author.profile_pic.url}}" alt="">
-                            {% endif %}
-                            {% if user.is_employer %}
+                            
                             <img src="{{comment.user.employer.profile_pic.url}}" alt="">
-                            {% endif %}
+                            
                     
 
                           </div>
@@ -146,7 +147,7 @@
                         {% for recent_post in recent_posts %}
                         <li><a href="{{ recent_post.get_absolute_url }}">
                           <h5>{{recent_post.title}}</h5>
-                          <span>{{recent_post.created_date}}</span>
+                          <span>{{recent_post.created_date|date:"d M Y"}}</span>
                         </a></li>
                         {% endfor %}
                       </ul>

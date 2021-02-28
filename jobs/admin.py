@@ -149,3 +149,8 @@ class EmployerAdmin(admin.ModelAdmin):
 
 admin.site.register(Employer, EmployerAdmin)
 
+
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ['websitename','update_at','create_at']
+
+admin.site.register(Setting, SettingAdmin)

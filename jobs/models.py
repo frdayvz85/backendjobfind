@@ -258,3 +258,11 @@ class Job(models.Model):
     #     self.slug = self.get_unique_slug()
     #     return super(Job, self).save(*args, **kwargs)
 
+
+class Setting(models.Model):
+    websitename=models.CharField(max_length=50, null=False, blank=False)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.websitename
