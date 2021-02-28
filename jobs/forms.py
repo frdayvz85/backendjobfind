@@ -22,7 +22,7 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['create_at','update_at','employer']
+        exclude = ['create_at','update_at','employer', 'slug']
 
 class PostForm(forms.ModelForm):
     class Meta:

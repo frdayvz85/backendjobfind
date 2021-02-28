@@ -9,6 +9,7 @@ from .forms import CommentForm, SignUpForm, ContactFormu, PostForm,JobForm,Emplo
 from django.contrib.auth.models import Group
 from .models import *
 from django.views.generic import CreateView
+from django.utils.text import slugify
 # from .filters import JobFilter
 # from user.forms import UserProfileForm
 
@@ -420,6 +421,8 @@ def jobCreate(request):
     employer = get_employer(request.user)
     if request.method == "POST":
         if form.is_valid():
+            job = form.save(commit=False)
+            job.slug = slugify(job.jobtitle)
             form.instance.employer = employer
             form.save()
             messages.success(request, "Your Job has been created succesfully. Thank you")
@@ -443,8 +446,11 @@ def job_update(request, slug):
     employer = get_employer(request.user)
     if request.method == "POST":
         if form.is_valid():
+            job = form.save(commit=False)
+            job.slug = slugify(job.jobtitle)
             form.instance.employer = employer
             form.save()
+            messages.success(request, "Your Job has been updated succesfully.")
             return redirect(reverse("jobDetail", kwargs={
                 'slug':form.instance.slug
             }))

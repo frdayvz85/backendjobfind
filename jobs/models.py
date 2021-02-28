@@ -5,6 +5,7 @@ from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.utils.text import slugify
 
 
 # User=get_user_model()
@@ -231,7 +232,7 @@ class Job(models.Model):
     experience = models.CharField(max_length=200, choices=EXXPERİENCE)
     jobcategory = models.ForeignKey(JobCategory,on_delete=models.CASCADE)
     city = models.ForeignKey(City,on_delete=models.CASCADE)
-    slug = models.SlugField(null=False, unique=True)
+    slug = models.SlugField(null=False, unique=True, max_length=550)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -244,4 +245,16 @@ class Job(models.Model):
             'slug':self.slug
         })
 
+    # def get_unique_slug(self):
+    #     slug = slugify(self.jobtitle)
+    #     unique_slug = slug
+    #     counter = 1
+    #     while Job.objects.filter(slug=unique_slug).exists():
+    #         unique_slug = '{}-{}'.format(slug, counter)
+    #         counter += 1
+    #         return unique_slug
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = self.get_unique_slug()
+    #     return super(Job, self).save(*args, **kwargs)
 

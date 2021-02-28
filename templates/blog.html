@@ -80,7 +80,7 @@
                         {% for recent_post in recent_posts %}
                         <li><a href="{{ recent_post.get_absolute_url }}">
                           <h5>{{recent_post.title}}</h5>
-                          <span>{{recent_post.created_date}}</span>
+                          <span>{{recent_post.created_date|date:"d M Y"}}</span>
                         </a></li>
                         {% endfor %}
                       </ul>
@@ -109,7 +109,7 @@
                     <div class="content">
                       <ul>
                         {% for tag in tags %}
-                        <li><a href="#">{{tag.title}}</a></li>
+                        <li>{{tag.title}}</li>
                         {% endfor %}
                       </ul>
                     </div>

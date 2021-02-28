@@ -166,6 +166,7 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
+        'autoParagraph': False,
     },
 }
  
