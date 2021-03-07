@@ -13,7 +13,11 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="{{request.user.employer.profile_pic.url}}" alt=""/>
+                    {% if request.user.employer.profile_pic %}
+                    <img src="{{request.user.employer.profile_pic.url}}" alt="Profile Img"/>
+                    {% else %}
+                    <img src="{% static 'assets/images/default.png' %}" alt="Profile Img"/>
+                    {% endif %}
                     <!-- <div class="file btn btn-lg btn-primary">
                         Change Photo
                         {{form.profile_pic}}
