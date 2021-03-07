@@ -180,7 +180,7 @@ CKEDITOR_CONFIGS = {
 AUTH_USER_MODEL = 'jobs.CustomUser'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': str(os.getenv('CLOUD_NAME')), 
+    'CLOUD_NAME': 'dcnbcvr2z', 
     'API_KEY': str(os.getenv('API_KEY')),
     'API_SECRET': str(os.getenv('API_SECRET')),
 }
