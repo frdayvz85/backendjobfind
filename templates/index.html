@@ -2,30 +2,57 @@
 {% load static %}
 
 {% block title %} Job Find Agency {% endblock %}
-
 {% block content %}
+<div class="all">
+
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
+      <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <!-- ***** Preloader End ***** -->
 
-
+  
 
     <!-- Page Content -->
     <!-- Banner Starts Here -->
-    <div class="main-banner header-text">
+    <div data-aos="flip-left" data-aos-delay="800" class="main-banner header-text">
       <div class="container-fluid">
         <div class="owl-banner owl-carousel">
+            {% for popularjob in popular_jobs %}
+          <div data-aos="fade-right" data-aos-delay="800" class="item">
+            <div class="layout">
+              <img src="{{popularjob.image.url}}" height="300" alt="">
+            </div>
+
+            <div class="item-content">
+
+              <div class="main-content">
+                <div class="meta-category">
+                  <span>${{popularjob.salary}}</span>
+                </div>
+
+                <a href="{{popularjob.get_absolute_url}}"><h4>{{popularjob.jobtitle}}</h4></a>
+
+                <ul class="post-info">
+                  <li><i class="fa fa-briefcase"></i> {{popularjob.jobcategory}} </li>
+                  <li><i class="fa fa-user"></i> {{popularjob.type}} </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          {% endfor %}
           {% for popularjob in popular_jobs %}
           <div class="item">
-            <img src="{{popularjob.image.url}}" height="300" alt="">
+            <div class="layout">
+              <img src="{{popularjob.image.url}}" height="300" alt="">
+            </div>
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span>$ {{popularjob.salary}}</span>
@@ -38,10 +65,10 @@
                   <li><i class="fa fa-user"></i> {{popularjob.type}}</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
-         {% endfor %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -50,19 +77,19 @@
     <section class="blog-posts grid-system">
       <div class="container">
         <div class="all-blog-posts">
-          <h2 class="text-center">Latest Jobs</h2>
+          <h2 data-aos="flip-down" data-aos-delay="1500" class="text-center">Featured Jobs</h2>
           <br>
           <div class="row">
             {% for lastjob in last_three_job %}
-            <div class="col-md-4 col-sm-6">
+            <div data-aos="zoom-in" data-aos-delay="800" class="col-md-4 col-sm-6 boxSh">
               <div class="blog-post">
                 <div class="blog-thumb">
                   <img src="{{lastjob.image.url}}" height="292" alt="">
                 </div>
                 <div class="down-content">
-                  <span>$ {{lastjob.salary}}</span>
-                  <a href="{{lastjob.get_absolute_url}}"><h4>{{lastjob.jobtitle}}</h4></a>
-                  <p>{{lastjob.overview|safe|truncatechars:100}}</p>
+                    <span>$ {{lastjob.salary}}</span>
+                    <a href="{{lastjob.get_absolute_url}}"><h4>{{lastjob.jobtitle}}</h4></a>
+                    <p>{{lastjob.overview|safe|truncatechars:100}}</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
@@ -85,7 +112,7 @@
     <section class="call-to-action">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
+          <div data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000" class="col-lg-12">
             <div class="main-content">
               <div class="row">
                 <div class="col-lg-8">
@@ -107,19 +134,19 @@
     <section class="blog-posts grid-system">
       <div class="container">
         <div class="all-blog-posts">
-          <h2 class="text-center">Blog</h2>
+          <h2 data-aos="flip-down" data-aos-delay="1000" class="text-center">Blog</h2>
           <br>
           <div class="row">
             {% for feature in featured %}
-            <div class="col-md-4 col-sm-6">
+            <div data-aos="zoom-in" class="col-md-4 col-sm-6 boxSh">
               <div class="blog-post">
                 <div class="blog-thumb">
                   <img src="{{feature.image.url}}" height="300" alt="">
                 </div>
                 <div class="down-content">
-                  <a href="{{ feature.get_absolute_url }}"><h4>{{feature.title}}</h4></a>
+                    <a href="{{ feature.get_absolute_url }}"><h4>{{feature.title}}</h4></a>
                   
-                  <p>{{feature.overview|truncatechars:80}}</p>
+                    <p>{{feature.overview|truncatechars:80}}</p>
 
                   <ul class="post-info">
                     <li>{{feature.author}}</li>
@@ -129,7 +156,7 @@
                 </div>
               </div>
             </div>
-            {% endfor %}
+          {% endfor %}
           </div>
         </div>
       </div>
@@ -138,19 +165,19 @@
     <div class="blog-posts">
       <div class="container">
         <div class="sidebar-item comments">
-            <h2 class="text-center">Testimonials</h2>
+          <h2 data-aos="flip-down" data-aos-delay="1000" class="text-center">Testimonials</h2>
           <br>
           <br>
           <div class="content">
             <ul>
-              {% for testimonial in last_three %}
-              <li>
+                {% for testimonial in last_three %}
+              <li class="boxSh commentLi" data-aos="flip-down" data-aos-delay="1200">
                 <div class="author-thumb">
-                  <img src="{{testimonial.image.url}}" height="100" alt="">
+                  <img src="{{testimonial.image.url}}" alt="">
                 </div>
                 <div class="right-content">
-                  <h4>{{testimonial.fullname}}<span>{{testimonial.created_date|date:"d M Y"}}</span></h4>
-                  <p>{{testimonial.description|safe}}</p>
+                    <h4>{{testimonial.fullname}}<span>{{testimonial.created_date|date:"d M Y"}}</span></h4>
+                    <p>{{testimonial.description|safe}}</p>
                 </div>
               </li>
               {% endfor %}
@@ -159,8 +186,8 @@
 
           <br>
           <br>
-        
-          <div class="row justify-content-md-center">
+
+          <div data-aos="zoom-in" class="row justify-content-md-center">
             <div class="col-md-3">
               <div class="main-button">
                 <a href="{% url 'testimonials' %}">Read More</a>
@@ -171,4 +198,5 @@
       </div>
     </div>
 
-    {% endblock %}
+  </div>
+{% endblock %}

@@ -1,8 +1,9 @@
 from django import forms
 from .models import Post, Comment, ContactFormMessage, Author, Employer, Job,CustomUser
-from django.forms import ModelForm, TextInput, Textarea, EmailInput, PasswordInput,URLField, IntegerField,ChoiceField, Select,NumberInput,URLInput
+from django.forms import ModelForm, TextInput, Textarea, EmailInput, PasswordInput,URLField, IntegerField,ChoiceField, Select,NumberInput,URLInput, ImageField, FileField,FileInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from collections import OrderedDict
 # from django.db import transaction
 
 
@@ -17,6 +18,9 @@ class EmployerForm(forms.ModelForm):
         model = Employer
         fields = '__all__'
         exclude = ['user']
+        widgets = {
+            'profile_pic':       FileInput(attrs={'name':'file'}),           
+        }
 
 class JobForm(forms.ModelForm):
     class Meta:
@@ -88,3 +92,79 @@ class ContactFormu(forms.ModelForm):
             'email':   TextInput(attrs={'id': 'email', 'placeholder': 'Email Adress'}),
             'message': Textarea(attrs={'id': 'message', 'placeholder': 'Your Message', 'rows':'10'}),
         }  
+
+
+
+
+
+
+
+
+#------------- Change Password -----------------------------
+
+class SetPasswordForm(forms.Form):
+    """
+    A form that lets a user change set their password without entering the old
+    password
+    """
+    error_messages = {
+        'password_mismatch': ("New password and repeat doesnt match."),
+    }
+    new_password1 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-control','id':'password1','placeholder': 'New Password'}))
+    new_password2 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-control','id':'password2', 'placeholder': 'New Password confirm'}))
+    
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get('new_password1')
+        password2 = self.cleaned_data.get('new_password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                )
+            if password1 == password2:
+                if len(password1)<8:
+                    raise forms.ValidationError("Password must consist of min 8 characters.")
+        return password2
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['new_password1'])
+        if commit:
+            self.user.save()
+        return self.user
+
+
+class PasswordChangeForm(SetPasswordForm):
+    """
+    A form that lets a user change their password by entering their old
+    password.
+    """
+    error_messages = dict(SetPasswordForm.error_messages, **{
+        'password_incorrect': ("Current password is wrong. "
+                               "Please write again."),
+    })
+    old_password = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-control','id':'password2', 'placeholder': 'Current Password'}))
+    
+
+    def clean_old_password(self):
+        """
+        Validates that the old_password field is correct.
+        """
+        old_password = self.cleaned_data["old_password"]
+        if not self.user.check_password(old_password):
+            raise forms.ValidationError(
+                self.error_messages['password_incorrect'],
+                code='password_incorrect',
+            )
+        return old_password
+
+
+PasswordChangeForm.base_fields = OrderedDict(
+    (k, PasswordChangeForm.base_fields[k])
+    for k in ['old_password', 'new_password1', 'new_password2']
+)

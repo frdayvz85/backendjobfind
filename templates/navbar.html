@@ -8,20 +8,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li data-aos="flip-left" data-aos-delay="1000" class="nav-item active">
                   <a class="nav-link" href="{% url 'home' %}">Home
                     <span class="sr-only">(current)</span>
                   </a>
                 </li> 
-                <li class="nav-item">
+                <li data-aos="flip-left" data-aos-delay="1200" class="nav-item">
                   <a class="nav-link" href="{% url 'jobs' %}">Jobs</a>
                 </li>
                 {% if request.user.is_superuser or request.user.is_employer %}
-                <li class="nav-item">
+                <li data-aos="flip-left" data-aos-delay="1400" class="nav-item">
                   <a class="nav-link" href="{% url 'job-create' %}">+ Add Job</a>
                 </li>
                 {% endif %}
-                <li class="nav-item dropdown">
+                <li data-aos="flip-left" data-aos-delay="1600" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
                     
                     <div class="dropdown-menu">
@@ -38,7 +38,7 @@
 
                     </div>
                 </li>
-                <li class="nav-item">
+                <li data-aos="flip-left" data-aos-delay="1800" class="nav-item">
                   <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                 </li>
                 
@@ -56,10 +56,10 @@
                 </li>
                 
                 {% else %}
-                <li class="nav-item">
+                <li data-aos="flip-left" data-aos-delay="1700" class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
-                <li class="nav-item">
+                <li data-aos="flip-left" data-aos-delay="1750" class="nav-item">
                   <a class="nav-link" href="{% url 'registerType' %}">Register</a>
                 </li>
                 {% endif %}

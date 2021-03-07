@@ -2,6 +2,19 @@
 {% load static %}
 
 {% block title %} {{request.user.username}} - Job Find Agency {% endblock %}
+
+{% block style_content %}
+<style>
+  .predit {
+      margin-top:-15rem;
+  }
+  @media only screen and (max-width: 980px) {
+    .predit {
+      margin-top:0;
+  }
+}
+</style>
+{% endblock %}
 {% block content %}
 
 
@@ -22,17 +35,24 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
+                    {% if request.user.author.profile_pic  %}
                     <img src="{{request.user.author.profile_pic.url}}" alt=""/>
+                    {% else %}
+                    <img src="{% static 'assets/images/default.png' %}" alt=""/>
+                    {% endif %}
                     <!-- <div class="file btn btn-lg btn-primary">
                         Change Photo
                         <input type="file" name="file"/>
                     </div> -->
+                    <div class="change-password mt-5 mb-5">
+                        <a style="width: 70%;" href="{% url 'password-change' %}" class="btn btn-primary">Change Password</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
                             <h5>
-                                {{request.user.author.name}}
+                                {{request.user.author.name}} [{{request.user.author.get_full_name}}]
                             </h5>
                             <h6>
                                 {{request.user.author.profession}}
@@ -49,14 +69,14 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <a href="{% url 'userProfileEdit' %}"><input type="text" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/></a>
+                <a href="{% url 'userProfileEdit' %}" class="btn btn-primary">Edit Profile</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 predit">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">

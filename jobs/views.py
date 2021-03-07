@@ -3,9 +3,11 @@ from django.shortcuts import render, redirect,get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+import hashlib
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
-from .forms import CommentForm, SignUpForm, ContactFormu, PostForm,JobForm,EmployerForm, AuthorForm,SignUpFormEmployer
+from .forms import CommentForm, SignUpForm, ContactFormu, PostForm,JobForm,EmployerForm, AuthorForm,SignUpFormEmployer,PasswordChangeForm
 from django.contrib.auth.models import Group
 from .models import *
 from django.views.generic import CreateView
@@ -150,6 +152,7 @@ def blogDetail(request, id):
     comment_count = comments.count()
 
     form = CommentForm(request.POST or None)
+    
     if request.method == "POST":
         if form.is_valid():
             form.instance.user =request.user
@@ -157,7 +160,9 @@ def blogDetail(request, id):
             form.save()
             return redirect(reverse("blogDetail", kwargs={
                 'id':post.id
-            }))
+        }))
+
+
     context = {
         'post':post,
         'recent_posts':recent_posts,
@@ -337,6 +342,19 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
+
+@login_required(login_url='/login/')
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('/')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request,'accounts/password_change.html',{'form':form})
 
 
 

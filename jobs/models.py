@@ -80,7 +80,7 @@ class Footer(models.Model):
 class Employer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
-    profile_pic = models.ImageField(upload_to='images/', default='images/default.png')
+    profile_pic = models.ImageField(upload_to='images/')
     phonenumber = models.CharField(blank=True, max_length=200)
     mobilenumber = models.CharField(blank=True, max_length=200)
     companyname = models.CharField(max_length=200)
@@ -97,7 +97,7 @@ class Employer(models.Model):
 class Author(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
-    profile_pic = models.ImageField(upload_to='images/', default='images/default.png')
+    profile_pic = models.ImageField(upload_to='images/')
     phonenumber = models.CharField(blank=True, max_length=200)
     profession = models.CharField(blank=True, max_length=200)
 

@@ -19,9 +19,14 @@
     
     
         <!-- Additional CSS Files -->
+        <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/rs.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+
+        {% block style_content %}
+
+        {% endblock %}
       </head>
 <body>
     {% include "navbar.html" %}

@@ -36,6 +36,9 @@ urlpatterns = [
     path('employerProfileEdit', views.employerProfileEdit, name="employerProfileEdit"),
 
 
+     #------------ Change Password ----------------------------
+    path('passwordChange',views.password_change,name='password-change'),
+
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"),
      name="reset_password"),

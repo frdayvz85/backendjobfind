@@ -11,7 +11,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <div class="text-content">
+              <div data-aos="zoom-in-right" data-aos-delay="800" class="text-content">
                 <h4>Jobs</h4>
                 <h2>Choose the perfect job!</h2>
               </div>
@@ -37,7 +37,7 @@
 			{% endif %}
         <div class="all-blog-posts">
           <div class="row">
-            <div class="col-md-4 col-xs-12">
+            <div data-aos="zoom-in" class="col-md-4 col-xs-12">
                 <form action="" method="GET">
                  <h4 style="margin-bottom: 15px">Type</h4>
 
@@ -110,7 +110,7 @@
             <div class="col-md-8 col-xs-12">
               <div class="row">
                 {% for job in queryset %}
-                <div class="col-sm-6">
+                <div data-aos="flip-right" class="col-sm-6 boxSh">
                   <div class="blog-post">
                     <div class="blog-thumb">
                       <img src="{{job.image.url}}" height="300" alt="">
