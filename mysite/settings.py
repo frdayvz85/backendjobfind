@@ -9,14 +9,18 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from decouple import config
 from pathlib import Path
 import django_heroku
 import cloudinary_storage
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
-SECRET_KEY = str(os.getenv('SECRET_KEY'))
+#### FOR .ENV #####
+# import os
+# from dotenv import load_dotenv
+# load_dotenv()
+
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -181,8 +185,8 @@ AUTH_USER_MODEL = 'jobs.CustomUser'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dcnbcvr2z', 
-    'API_KEY': str(os.getenv('API_KEY')),
-    'API_SECRET': str(os.getenv('API_SECRET')),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
 }
 
 
