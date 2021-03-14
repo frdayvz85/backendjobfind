@@ -38,14 +38,6 @@
                       <h2>Send us a message</h2>
                     </div>
                     <div class="content">
-                      {% if messages %}
-				{% for message in messages %}
-        <div class="alert alert-success" role="alert">
-          {{message}}
-        </div>
-				{% endfor %}		
-			{% endif %}
-
                       <form id="contact" action="" method="post">
                         {% csrf_token %}
                         <div class="row">
@@ -118,5 +110,22 @@
     </section>
   </div>
 
+  {% block script_content %}
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+{% if messages %}
+      {% for message in messages %}
+        <script>
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '{{message}}',
+              showConfirmButton: false,
+              timer: 2500
+        });
+        </script>
+      {% endfor %}
+    {% endif %}
+{% endblock %}
   
 {% endblock %}
+
