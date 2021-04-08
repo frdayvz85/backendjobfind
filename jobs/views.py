@@ -509,3 +509,10 @@ def employerProfileEdit(request):
         'form':form,
     }
     return render(request, 'employer-profile-edit.html', context)
+
+
+def error_404(request, exception):
+    return render(request, 'errorpages/404.html', status=404)
+
+def error_500(request):
+    return render(request, 'errorpages/500.html', status=500)

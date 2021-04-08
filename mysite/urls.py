@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from jobs.views import error_404, error_500
+from django.conf.urls import handler404, handler500
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', include('jobs.urls')),
@@ -29,3 +32,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "jobs.views.error_404"
+handler500 = "jobs.views.error_500"

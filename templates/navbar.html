@@ -9,20 +9,20 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                 <li data-aos="flip-left" data-aos-delay="1000" class="nav-item active">
-                  <a class="nav-link" href="{% url 'home' %}">Home
+                  <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Home
                     <span class="sr-only">(current)</span>
                   </a>
                 </li> 
                 <li data-aos="flip-left" data-aos-delay="1200" class="nav-item">
-                  <a class="nav-link" href="{% url 'jobs' %}">Jobs</a>
+                  <a class="nav-link" href="{% url 'jobs' %}"><i class="fas fa-file"></i> Jobs</a>
                 </li>
                 {% if request.user.is_superuser or request.user.is_employer %}
                 <li data-aos="flip-left" data-aos-delay="1400" class="nav-item">
-                  <a class="nav-link" href="{% url 'job-create' %}">+ Add Job</a>
+                  <a class="nav-link" href="{% url 'job-create' %}"><i class="fas fa-plus"></i> Add Job</a>
                 </li>
                 {% endif %}
                 <li data-aos="flip-left" data-aos-delay="1600" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-address-card"></i> About</a>
                     
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="{% url 'about-us' %}">About Us</a>
@@ -39,7 +39,7 @@
                     </div>
                 </li>
                 <li data-aos="flip-left" data-aos-delay="1800" class="nav-item">
-                  <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                  <a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact Us</a>
                 </li>
                 
                 {% if user.is_authenticated %}
@@ -52,15 +52,15 @@
                   {% endif %}
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                  <a class="nav-link btn btn-primary" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
                 
                 {% else %}
                 <li data-aos="flip-left" data-aos-delay="1700" class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
                 </li>
                 <li data-aos="flip-left" data-aos-delay="1750" class="nav-item">
-                  <a class="nav-link" href="{% url 'registerType' %}">Register</a>
+                  <a class="nav-link" href="{% url 'registerType' %}"><i class="fas fa-caret-right"></i> Register</a>
                 </li>
                 {% endif %}
               </ul>
